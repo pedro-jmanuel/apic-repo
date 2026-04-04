@@ -1,0 +1,62 @@
+swagger: '2.0'
+info:
+  title: HelloApi
+  version: 1.0.0
+  description: HelloApi
+  x-ibm-name: helloapi
+paths:
+  /say:
+    get:
+      operationId: getSay
+      responses:
+        '200':
+          description: The operation was successful.
+          schema:
+            type: string
+      produces:
+        - application/json
+      description: Retrieve say
+basePath: /helloapi/v1
+schemes:
+  - https
+x-ibm-configuration:
+  type: rest
+  phase: realized
+  enforced: true
+  testable: true
+  gateway: datapower-api-gateway
+  assembly:
+    execute:
+      - invoke:
+          version: 2.0.0
+          title: invoke
+          backend-type: json
+          header-control:
+            type: blocklist
+            values: []
+          parameter-control:
+            type: allowlist
+            values: []
+          timeout: 60
+          verb: keep
+          chunked-uploads: true
+          persistent-connection: true
+          target-url: $(target-url)$(request.path)
+          cache-response: no-cache
+  properties:
+    target-url:
+      value: https://hht8n89l-7800.uks1.devtunnels.ms
+      description: The URL of the target service
+      encoded: false
+  cors:
+    enabled: true
+  activity-log:
+    enabled: true
+    success-content: activity
+    error-content: payload
+  application-authentication: {}
+securityDefinitions:
+  clientIdHeader:
+    type: apiKey
+    in: header
+    name: X-IBM-Client-Id
