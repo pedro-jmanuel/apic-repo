@@ -46,7 +46,7 @@ x-ibm-configuration:
   properties:
     target-url:
       value: https://hht8n89l-7600.uks1.devtunnels.ms/
-      description: The URL of the target service, yes.
+      description: The URL of the target service.
       encoded: false
   cors:
     enabled: true
